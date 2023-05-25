@@ -9,7 +9,7 @@ const resetBtn = document.getElementById("reset");
 
 let num1 = "";
 let num2 = "";
-let operand = ""; // empty string returns false
+let operand = "";
 let hasPoint = false;
 
 function updateTotal() {
