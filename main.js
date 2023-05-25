@@ -1,109 +1,184 @@
-// GET UI ELEMENTS
-const equalsBtn = document.getElementById("equals");
+const displayTotal = document.getElementById("displayTotal");
 
+const numberBtn = document.querySelectorAll(".number");
+const operandBtn = document.querySelectorAll(".operand");
+const pointBtn = document.querySelector(".point");
+const equalsBtn = document.getElementById("equals");
 const deleteBtn = document.getElementById("delete");
 const resetBtn = document.getElementById("reset");
 
-const result = document.getElementById("result");
-const numberButtons = document.querySelectorAll(".number");
-const operandButtons = document.querySelectorAll(".operand");
-const pointBtn = document.querySelector(".point");
-
-let total = "";
+let num1 = "";
+let num2 = "";
+let operand = ""; // empty string returns false
 let hasPoint = false;
-let isTyping = false;
-let hasOperand = false;
-let hasNum1 = false;
-let hasNum2 = false;
-
-let num1 = 0;
-let operand = "none";
-let num2 = 0;
 
 function updateTotal() {
-  result.textContent = total;
+  num1 = num1.slice(0, 10);
+  num2 = num2.slice(0, 10);
+
+  displayTotal.textContent = `${num1}` + ` ${operand} ` + `${num2}`;
 }
 
-resetBtn.addEventListener("click", () => {
-  total = "0";
-  updateTotal();
-  hasPoint = false;
-  isTyping = false;
-  hasNum1 = false;
-  hasOperand = false;
-  hasNum2 = false;
-  total = "";
-});
-
-pointBtn.addEventListener("click", () => {
-  if (!isTyping) {
-    total += "0.";
-    updateTotal();
-  } else if (!hasPoint && !hasOperand) {
-    total += ".";
-    updateTotal();
-  }
-
-  hasPoint = true;
-});
-
-numberButtons.forEach((button) => {
+numberBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    const clickedNumber = button.textContent;
-    total += clickedNumber;
-    isTyping = true;
-    updateTotal();
+    if (!operand) {
+      const clickedNumber = button.textContent;
+      num1 += clickedNumber;
+      updateTotal();
+    } else if (operand) {
+      const clickedNumber = button.textContent;
+      num2 += clickedNumber;
+      updateTotal();
+    }
   });
 });
 
-deleteBtn.addEventListener("click", () => {
-  let totalArray = total.split("");
-  totalArray.pop();
-  total = totalArray.join("");
-
-  const stillHasPoint = total.includes(".");
-  const stillHasOperand =
-    total.includes("+") ||
-    total.includes("-") ||
-    total.includes("x") ||
-    total.includes("/");
-
-  if (!stillHasOperand) {
-    hasOperand = false;
-  }
-
-  if (!stillHasPoint) {
-    hasPoint = false;
-  }
-
-  updateTotal();
-
-  if (total == "") {
-    total = "0";
-    updateTotal();
-  }
-});
-
-operandButtons.forEach((button) => {
+operandBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    if (isTyping && !hasOperand) {
-      const clickedOperand = button.textContent;
-      num1 = total;
-      hasNum1 = true;
-      total += `${clickedOperand}`;
-      operand = clickedOperand;
-      hasOperand = true;
+    if (!num1 && button.textContent == "-") {
+      num1 = "-";
+      hasPoint = false;
       updateTotal();
-    } else if (!isTyping && !hasOperand) {
-      num1 = 0;
-      hasNum1 = true;
+    } else if (!num1) {
       const clickedOperand = button.textContent;
-      total += `0 ${clickedOperand} `;
+      num1 = "0";
+      operand += clickedOperand;
+      hasPoint = false;
+      updateTotal();
+    } else if (!operand) {
+      const clickedOperand = button.textContent;
+      operand += clickedOperand;
+      hasPoint = false;
+      updateTotal();
+    } else if (operand && !num2 && button.textContent == "-") {
+      num2 = "-";
+      hasPoint = false;
+      updateTotal();
+    } else if (operand && !num2) {
+      const clickedOperand = button.textContent;
       operand = clickedOperand;
-      hasOperand = true;
+      hasPoint = false;
       updateTotal();
     }
 
-    hasPoint = false;
+    if (num1.toString().endsWith(".")) {
+      let num1Array = num1.split("");
+      num1Array.pop();
+      num1 = num1Array.join("");
+      updateTotal();
+    }
   });
 });
+
+pointBtn.addEventListener("click", () => {
+  if (!num1) {
+    const clickedPoint = pointBtn.textContent;
+    num1 = "0";
+    num1 += clickedPoint;
+    hasPoint = true;
+    updateTotal();
+  } else if (operand && !num2) {
+    const clickedPoint = pointBtn.textContent;
+    num2 = "0";
+    num2 += clickedPoint;
+    hasPoint = true;
+    updateTotal();
+  }
+
+  if (!operand && !hasPoint) {
+    const clickedPoint = pointBtn.textContent;
+    num1 += clickedPoint;
+    hasPoint = true;
+    updateTotal();
+  } else if (operand && !hasPoint) {
+    const clickedPoint = pointBtn.textContent;
+    num2 += clickedPoint;
+    hasPoint = true;
+    updateTotal();
+  }
+});
+
+function reset() {
+  num1 = "";
+  operand = "";
+  num2 = "";
+  hasPoint = false;
+}
+
+resetBtn.addEventListener("click", () => {
+  reset();
+  updateTotal();
+  displayTotal.textContent = "0";
+});
+
+deleteBtn.addEventListener("click", () => {
+  if (!operand) {
+    let num1Array = num1.split("");
+    num1Array.pop();
+    num1 = num1Array.join("");
+
+    if (num1.includes(".")) {
+      hasPoint = true;
+    } else if (!num1.includes(".")) {
+      hasPoint = false;
+    }
+  } else if (operand && num2) {
+    let num2Array = num2.split("");
+    num2Array.pop();
+    num2 = num2Array.join("");
+
+    if (num2.includes(".")) {
+      hasPoint = true;
+    } else if (!num2.includes(".")) {
+      hasPoint = false;
+    }
+  } else if (operand && !num2) {
+    operand = "";
+  }
+
+  updateTotal();
+
+  if (!num1) {
+    displayTotal.textContent = "0";
+  }
+});
+
+equalsBtn.addEventListener("click", () => {
+  if (num2 && operand == "+") {
+    total = add(Number(num1), Number(num2));
+    reset();
+    num1 = total.toString();
+    updateTotal();
+  } else if (num2 && operand == "-") {
+    total = subtract(Number(num1), Number(num2));
+    reset();
+    num1 = total.toString();
+    updateTotal();
+  } else if (num2 && operand == "x") {
+    total = multiply(Number(num1), Number(num2));
+    reset();
+    num1 = total.toString();
+    updateTotal();
+  } else if (num2 && operand == "/") {
+    total = divide(Number(num1), Number(num2));
+    reset();
+    num1 = total.toString();
+    updateTotal();
+  }
+});
+
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+function divide(a, b) {
+  return a / b;
+}
