@@ -27,13 +27,14 @@ Users should be able to:
 - Adjust the color theme based on their preference
 
 ### Links
+
 - Live Site URL: [https://jeddsoh.github.io/calculator/](https://jeddsoh.github.io/calculator/)
 
 ## My process
 
 I built this calculator as a learning project while studying software development through [The Odin Project](https://theodinproject.com).
 
-This is also a solution to the [Calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/calculator-app-9lteq5N29), which provided the visual designs. I'm proud that my final code was pretty much spot on with the original designs, but I'm an experienced UX/UI designer, so I have an advantage there.
+This is also a solution to the [Calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/calculator-app-9lteq5N29), which provided the visual designs. I'm proud that my final code was pretty much spot on with the original designs, but I'm an experienced UX/UI designer, so I have an advantage
 
 ### Built with
 
@@ -44,7 +45,6 @@ This is also a solution to the [Calculator app challenge on Frontend Mentor](htt
 - CSS Grid
 - Mobile-first workflow
 
-
 ### What I learned
 
 Gaining experience with user color theme preferences was invaluable. Moving forward, I plan to implement dark and light themes to my websites.
@@ -52,17 +52,24 @@ Gaining experience with user color theme preferences was invaluable. Moving forw
 Writing JavaScript for a calculator app is not as simple as creating some add() ad subtract() functions. If there's a way to break the app, users will find it. I needed to protect against potential breaks in the code. For example, preventing multiple decimal points from being added (which results in NaN), and using booleans to check whether a user is typing an operator or an operator.
 
 ```css
+/* CSS */
 :root.light {
   --bg-color: hsl(0, 0%, 90%);
   --text-color: hsl(60, 10%, 19%);
-  --screen-color: hsl(0, 0%, 93%);...
+  --screen-color: hsl(0, 0%, 93%);
+  ...;
+}
 
-  :root.dark {
+:root.dark {
   --bg-color: hsl(222, 26%, 31%);
   --text-color: hsl(0, 0%, 100%);
-  --screen-color: hsl(224, 36%, 15%);...
+  --screen-color: hsl(224, 36%, 15%);
+  ...;
+}
 ```
+
 ```js
+// JavaScript
 deleteBtn.addEventListener("click", () => {
   if (!operator) {
     let num1Array = num1.split("");
@@ -93,7 +100,9 @@ deleteBtn.addEventListener("click", () => {
   if (!num1) {
     displayTotal.textContent = "0";
   }
-});deleteBtn.addEventListener("click", () => {
+});
+
+deleteBtn.addEventListener("click", () => {
   if (!operator) {
     let num1Array = num1.split("");
     num1Array.pop();
@@ -129,6 +138,7 @@ deleteBtn.addEventListener("click", () => {
 ### Continued development
 
 Although I've marked this project complete, these are some features I'd add if I continued working on it:
+
 - A log of past calculations
 - Smoother animations
 - More calculations, such as exponents and parenthesis
