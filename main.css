@@ -179,6 +179,7 @@ body {
   justify-content: center;
   height: 100vh;
   padding: 0 1rem;
+  position: relative;
 }
 
 @media (max-width: 550px) {
@@ -342,4 +343,17 @@ a {
 
 .key#equals {
   grid-column: 3 / span 2;
+}
+
+footer {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  font-size: 1rem;
+  color: var(--text-color);
+  position: absolute;
 }
