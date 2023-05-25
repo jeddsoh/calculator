@@ -1,3 +1,20 @@
+// Color Theme
+const colorTheme = document.getElementById("range");
+
+colorTheme.addEventListener("input", function() {
+    if (colorTheme.value == 1) {
+        document.documentElement.classList.remove("light", "dark", "acid")
+        document.documentElement.classList.add("light")
+    } else if (colorTheme.value == 2) {
+        document.documentElement.classList.remove("light", "dark", "acid")
+        document.documentElement.classList.add("dark")
+    } else if (colorTheme.value == 3) {
+        document.documentElement.classList.remove("light", "dark", "acid")
+        document.documentElement.classList.add("acid")
+    }
+});
+
+// Calculator Functionality
 const displayTotal = document.getElementById("displayTotal");
 
 const numberBtn = document.querySelectorAll(".number");
