@@ -18,7 +18,7 @@ colorTheme.addEventListener("input", function() {
 const displayTotal = document.getElementById("displayTotal");
 
 const numberBtn = document.querySelectorAll(".number");
-const operandBtn = document.querySelectorAll(".operand");
+const operatorBtn = document.querySelectorAll(".operator");
 const pointBtn = document.querySelector(".point");
 const equalsBtn = document.getElementById("equals");
 const deleteBtn = document.getElementById("delete");
@@ -26,23 +26,23 @@ const resetBtn = document.getElementById("reset");
 
 let num1 = "";
 let num2 = "";
-let operand = "";
+let operator = "";
 let hasPoint = false;
 
 function updateTotal() {
   num1 = num1.slice(0, 10);
   num2 = num2.slice(0, 10);
 
-  displayTotal.textContent = `${num1}` + ` ${operand} ` + `${num2}`;
+  displayTotal.textContent = `${num1}` + ` ${operator} ` + `${num2}`;
 }
 
 numberBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    if (!operand) {
+    if (!operator) {
       const clickedNumber = button.textContent;
       num1 += clickedNumber;
       updateTotal();
-    } else if (operand) {
+    } else if (operator) {
       const clickedNumber = button.textContent;
       num2 += clickedNumber;
       updateTotal();
@@ -50,30 +50,30 @@ numberBtn.forEach((button) => {
   });
 });
 
-operandBtn.forEach((button) => {
+operatorBtn.forEach((button) => {
   button.addEventListener("click", () => {
     if (!num1 && button.textContent == "-") {
       num1 = "-";
       hasPoint = false;
       updateTotal();
     } else if (!num1) {
-      const clickedOperand = button.textContent;
+      const clickedoperator = button.textContent;
       num1 = "0";
-      operand += clickedOperand;
+      operator += clickedoperator;
       hasPoint = false;
       updateTotal();
-    } else if (!operand) {
-      const clickedOperand = button.textContent;
-      operand += clickedOperand;
+    } else if (!operator) {
+      const clickedoperator = button.textContent;
+      operator += clickedoperator;
       hasPoint = false;
       updateTotal();
-    } else if (operand && !num2 && button.textContent == "-") {
+    } else if (operator && !num2 && button.textContent == "-") {
       num2 = "-";
       hasPoint = false;
       updateTotal();
-    } else if (operand && !num2) {
-      const clickedOperand = button.textContent;
-      operand = clickedOperand;
+    } else if (operator && !num2) {
+      const clickedoperator = button.textContent;
+      operator = clickedoperator;
       hasPoint = false;
       updateTotal();
     }
@@ -94,7 +94,7 @@ pointBtn.addEventListener("click", () => {
     num1 += clickedPoint;
     hasPoint = true;
     updateTotal();
-  } else if (operand && !num2) {
+  } else if (operator && !num2) {
     const clickedPoint = pointBtn.textContent;
     num2 = "0";
     num2 += clickedPoint;
@@ -102,12 +102,12 @@ pointBtn.addEventListener("click", () => {
     updateTotal();
   }
 
-  if (!operand && !hasPoint) {
+  if (!operator && !hasPoint) {
     const clickedPoint = pointBtn.textContent;
     num1 += clickedPoint;
     hasPoint = true;
     updateTotal();
-  } else if (operand && !hasPoint) {
+  } else if (operator && !hasPoint) {
     const clickedPoint = pointBtn.textContent;
     num2 += clickedPoint;
     hasPoint = true;
@@ -117,7 +117,7 @@ pointBtn.addEventListener("click", () => {
 
 function reset() {
   num1 = "";
-  operand = "";
+  operator = "";
   num2 = "";
   hasPoint = false;
 }
@@ -129,7 +129,7 @@ resetBtn.addEventListener("click", () => {
 });
 
 deleteBtn.addEventListener("click", () => {
-  if (!operand) {
+  if (!operator) {
     let num1Array = num1.split("");
     num1Array.pop();
     num1 = num1Array.join("");
@@ -139,7 +139,7 @@ deleteBtn.addEventListener("click", () => {
     } else if (!num1.includes(".")) {
       hasPoint = false;
     }
-  } else if (operand && num2) {
+  } else if (operator && num2) {
     let num2Array = num2.split("");
     num2Array.pop();
     num2 = num2Array.join("");
@@ -149,8 +149,8 @@ deleteBtn.addEventListener("click", () => {
     } else if (!num2.includes(".")) {
       hasPoint = false;
     }
-  } else if (operand && !num2) {
-    operand = "";
+  } else if (operator && !num2) {
+    operator = "";
   }
 
   updateTotal();
@@ -161,22 +161,22 @@ deleteBtn.addEventListener("click", () => {
 });
 
 equalsBtn.addEventListener("click", () => {
-  if (num2 && operand == "+") {
+  if (num2 && operator == "+") {
     total = add(Number(num1), Number(num2));
     reset();
     num1 = total.toString();
     updateTotal();
-  } else if (num2 && operand == "-") {
+  } else if (num2 && operator == "-") {
     total = subtract(Number(num1), Number(num2));
     reset();
     num1 = total.toString();
     updateTotal();
-  } else if (num2 && operand == "x") {
+  } else if (num2 && operator == "x") {
     total = multiply(Number(num1), Number(num2));
     reset();
     num1 = total.toString();
     updateTotal();
-  } else if (num2 && operand == "/") {
+  } else if (num2 && operator == "/") {
     total = divide(Number(num1), Number(num2));
     reset();
     num1 = total.toString();
