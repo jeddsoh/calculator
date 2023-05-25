@@ -1,4 +1,6 @@
-# Frontend Mentor - Calculator app solution
+# Calculator App
+
+![](./images/screenshot.png)
 
 ## Table of contents
 
@@ -24,10 +26,6 @@ Users should be able to:
 - Perform mathematical operations like addition, subtraction, multiplication, and division
 - Adjust the color theme based on their preference
 
-### Screenshot
-
-![](./images/screenshot.png)
-
 ### Links
 - Live Site URL: [https://jeddsoh.github.io/calculator/](https://jeddsoh.github.io/calculator/)
 
@@ -35,7 +33,7 @@ Users should be able to:
 
 I built this calculator as a learning project while studying software development through [The Odin Project](https://theodinproject.com).
 
-This is also a solution to the [Calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/calculator-app-9lteq5N29). 
+This is also a solution to the [Calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/calculator-app-9lteq5N29), which provided the visual designs. I'm proud that my final code was pretty much spot on with the original designs, but I'm an experienced UX/UI designer, so I have an advantage there.
 
 ### Built with
 
